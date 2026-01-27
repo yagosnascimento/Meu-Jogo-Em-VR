@@ -1,22 +1,17 @@
 using UnityEngine;
 
-public class SlotScore : MonoBehaviour
+public class ScoreTrigger : MonoBehaviour
 {
-    // Agora o campo aceita arrastar o Prefab ou Objeto
-    public GameObject targetObject;
+    public GameObject objetoAlvo; // Arraste o Prefab do Cubo/Triângulo aqui
 
     private void OnTriggerEnter(Collider other)
     {
-        // Verificamos se o nome do objeto que entrou começa com o nome do alvo
-        // Isso ignora o "(Clone)" que o Unity adiciona ao spawnar
-        if (other.name.StartsWith(targetObject.name))
+        // Se o nome do que entrou começar com o nome do alvo (ex: Cubo)
+        if (objetoAlvo != null && other.name.StartsWith(objetoAlvo.name))
         {
             ScoreManager.instance.AddScore(10);
-
-            // Feedback visual: desativa o objeto que entrou
-            other.gameObject.SetActive(false);
-
-            Debug.Log("Objeto correto encaixado!");
+            Destroy(other.gameObject); // Faz o objeto sumir
+            Debug.Log("PONTO! Objeto correto.");
         }
     }
 }

@@ -1314,7 +1314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7fe06da6a841448ad5199956f4207b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  targetObject: {fileID: 192637635}
+  objetoAlvo: {fileID: 0}
 --- !u!64 &281680944
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1330,7 +1330,7 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
@@ -2853,7 +2853,7 @@ GameObject:
   - component: {fileID: 1664346507}
   - component: {fileID: 1664346506}
   m_Layer: 0
-  m_Name: SCORE
+  m_Name: Scoremanager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3024,7 +3024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7fe06da6a841448ad5199956f4207b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SlotScore
-  targetObject: {fileID: 192637636}
+  objetoAlvo: {fileID: 0}
 --- !u!64 &1764128406
 MeshCollider:
   m_ObjectHideFlags: 0

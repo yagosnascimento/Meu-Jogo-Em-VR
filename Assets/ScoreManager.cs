@@ -1,7 +1,5 @@
 using UnityEngine;
-
-using UnityEngine;
-using TMPro; // Importante para usar TextMeshPro
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -22,6 +20,7 @@ public class ScoreManager : MonoBehaviour
 
     void UpdateUI()
     {
-        scoreText.text = "Score: " + score;
+        if (scoreText != null)
+            scoreText.text = "Score: " + score;
     }
 }
