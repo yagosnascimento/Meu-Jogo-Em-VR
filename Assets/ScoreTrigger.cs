@@ -2,16 +2,26 @@ using UnityEngine;
 
 public class ScoreTrigger : MonoBehaviour
 {
-    public GameObject objetoAlvo; // Arraste o Prefab do Cubo/Triângulo aqui
+    public GameObject objetoCorreto; // arraste o PREFAB correto aqui
+    public int pontosAcerto = 10;
+    public int pontosErro = -5;
 
     private void OnTriggerEnter(Collider other)
     {
-        // Se o nome do que entrou começar com o nome do alvo (ex: Cubo)
-        if (objetoAlvo != null && other.name.StartsWith(objetoAlvo.name))
+        // compara o prefab pelo nome base (ignora "(Clone)")
+        string nomeObjeto = other.gameObject.name.Replace("(Clone)", "");
+
+        if (nomeObjeto == objetoCorreto.name)
         {
-            ScoreManager.instance.AddScore(10);
-            Destroy(other.gameObject); // Faz o objeto sumir
-            Debug.Log("PONTO! Objeto correto.");
+            ScoreManager.instance.AddScore(pontosAcerto);
+            Debug.Log("ACERTO");
         }
+        else
+        {
+            ScoreManager.instance.AddScore(pontosErro);
+            Debug.Log("ERRO");
+        }
+
+        Destroy(other.gameObject);
     }
 }

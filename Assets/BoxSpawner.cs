@@ -2,24 +2,52 @@ using UnityEngine;
 
 public class BoxSpawner : MonoBehaviour
 {
-    public GameObject boxPrefab; // Arraste seu Prefab de caixa aqui no Inspector
-    public float spawnInterval = 2.0f; // Tempo entre cada caixa (segundos)
-    private float timer;
+    [Header("Prefabs")]
+    public GameObject[] prefabs;
+
+    [Header("Spawn Settings")]
+    public float spawnInterval = 2.0f;      // Intervalo inicial
+    public float minSpawnInterval = 0.5f;   // Intervalo mínimo
+    public float speedUpRate = 0.1f;         // Quanto acelera
+    public float timeToSpeedUp = 10f;        // A cada quantos segundos acelera
+
+    private float spawnTimer;
+    private float speedTimer;
 
     void Update()
     {
-        timer += Time.deltaTime;
+        // Timer de spawn
+        spawnTimer += Time.deltaTime;
 
-        if (timer >= spawnInterval)
+        if (spawnTimer >= spawnInterval)
         {
             SpawnBox();
-            timer = 0;
+            spawnTimer = 0f;
+        }
+
+        // Timer de aceleração
+        speedTimer += Time.deltaTime;
+
+        if (speedTimer >= timeToSpeedUp)
+        {
+            AumentarVelocidade();
+            speedTimer = 0f;
         }
     }
 
     void SpawnBox()
     {
-        // Cria a caixa exatamente na posição deste objeto Spawner
-        Instantiate(boxPrefab, transform.position, transform.rotation);
+        int index = Random.Range(0, prefabs.Length);
+        Instantiate(prefabs[index], transform.position, transform.rotation);
+    }
+
+    void AumentarVelocidade()
+    {
+        spawnInterval -= speedUpRate;
+
+        if (spawnInterval < minSpawnInterval)
+        {
+            spawnInterval = minSpawnInterval;
+        }
     }
 }
