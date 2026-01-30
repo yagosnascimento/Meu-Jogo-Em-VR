@@ -13,14 +13,20 @@ public class ScoreTrigger : MonoBehaviour
 
         if (nomeObjeto == objetoCorreto.name)
         {
-            ScoreManager.instance.AddScore(pontosAcerto);
+            // Adiciona 10 pontos e 5 segundos de bônus
+            ScoreManager.instance.AddScore(10, 5f);
             Debug.Log("ACERTO");
         }
         else
         {
-            ScoreManager.instance.AddScore(pontosErro);
+            // Adiciona 10 pontos e 5 segundos de bônus
+            ScoreManager.instance.AddScore(-10, -5f);
             Debug.Log("ERRO");
         }
+
+        // Dentro do seu OnTriggerEnter, quando o objeto for o correto:
+        ScoreManager.instance.AddScore(10, 5f); // Adiciona 10 pontos e 5 segundos
+        Destroy(other.gameObject);
 
         Destroy(other.gameObject);
     }
