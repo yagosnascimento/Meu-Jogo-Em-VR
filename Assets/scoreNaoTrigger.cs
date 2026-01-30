@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ScoreTrigger : MonoBehaviour
+public class ScoreNaoTrigger : MonoBehaviour
 {
     public GameObject objetoCorreto;
     public int pontosAcerto = 10;
@@ -13,8 +13,8 @@ public class ScoreTrigger : MonoBehaviour
 
         if (nomeObjeto == objetoCorreto.name)
         {
-            // ACERTOU
-            ScoreManager.instance.AddScore(10, 5f);
+            // ERROU
+            ScoreManager.instance.AddScore(-10, -5f);
             Debug.Log("ACERTO");
         }
         else

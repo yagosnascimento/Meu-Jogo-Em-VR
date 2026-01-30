@@ -6,10 +6,10 @@ public class BoxSpawner : MonoBehaviour
     public GameObject[] prefabs;
 
     [Header("Spawn Settings")]
-    public float spawnInterval = 2.0f;      // Intervalo inicial
-    public float minSpawnInterval = 0.5f;   // Intervalo mínimo
-    public float speedUpRate = 0.1f;         // Quanto acelera
-    public float timeToSpeedUp = 10f;        // A cada quantos segundos acelera
+    public float spawnInterval = 3.0f;      // Intervalo inicial
+    public float minSpawnInterval = 1.0f;   // Intervalo mínimo
+    public float speedUpRate = 3.0f;         // Quanto acelera
+    public float timeToSpeedUp = 5f;        // A cada quantos segundos acelera
 
     private float spawnTimer;
     private float speedTimer;
