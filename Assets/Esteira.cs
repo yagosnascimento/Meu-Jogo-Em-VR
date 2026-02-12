@@ -2,19 +2,29 @@ using UnityEngine;
 
 public class ConveyorBelt : MonoBehaviour
 {
-    public float speed = 5.0f;
+    public float speed = 2.0f;
+    public bool invertDirection = false;
 
-    // Este mÈtodo È chamado enquanto algo estiver encostando na esteira
-    private void OnCollisionStay(Collision collision)
+    // Essa propriedade calcula a velocidade real no mundo para quem perguntar
+    public Vector3 WorldVelocity
     {
-        // Tenta pegar o Rigidbody do objeto que caiu na esteira
-        Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
-
-        if (rb != null)
+        get
         {
-            // Move o objeto na direÁ„o "para frente" (forward) da esteira
-            Vector3 movement = transform.right * speed * Time.deltaTime;
-            rb.MovePosition(rb.position + movement);
+            // Se os itens estavam indo certo com transform.right, mantemos aqui
+            Vector3 dir = invertDirection ? -transform.right : transform.right;
+            return dir * speed;
         }
     }
+
+    // Mant√©m a f√≠sica das CAIXAS (Rigidbody) funcionando
+    private void OnCollisionStay(Collision collision)
+    {
+        Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+        if (rb != null && !rb.isKinematic)
+        {
+            rb.MovePosition(rb.position + WorldVelocity * Time.deltaTime);
+        }
+    }
+    
+    // PODE REMOVER O ONTRIGGERSTAY DAQUI, N√ÉO VAMOS MAIS USAR PARA O PLAYER
 }

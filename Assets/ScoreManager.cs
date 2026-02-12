@@ -1,16 +1,19 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement; // Importante para reiniciar o jogo
+using UnityEngine.SceneManagement; 
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager instance;
 
+    [Header("Conex√£o com o Placar")]
+    public LeaderboardManager leaderboardManager; 
+
     [Header("UI")]
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI timerText; // Crie um novo texto na Unity e arraste para c·
+    public TextMeshProUGUI timerText; 
 
-    [Header("ConfiguraÁıes")]
+    [Header("Configura√ß√µes")]
     public float tempoRestante = 60f;
     private int score = 0;
     private bool jogoFinalizado = false;
@@ -35,7 +38,6 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    // Agora este mÈtodo aceita os pontos E o bÙnus de tempo
     public void AddScore(int amount, float timeBonus)
     {
         if (jogoFinalizado) return;
@@ -58,9 +60,23 @@ public class ScoreManager : MonoBehaviour
     {
         jogoFinalizado = true;
         if (timerText != null) timerText.text = "TEMPO ESGOTADO!";
+        
         Debug.Log("Fim de jogo! Pontos: " + score);
 
-        // Reinicia a fase apÛs 3 segundos
+        // --- [NOVO] SALVANDO NO LEADERBOARD ---
+        if (leaderboardManager != null)
+        {
+            // Por enquanto usamos o nome "Jogador". Na pr√≥xima aula podemos mudar isso!
+            leaderboardManager.AddEntry("Jogador", score);
+            Debug.Log("‚úÖ Pontua√ß√£o enviada para o Leaderboard!");
+        }
+        else
+        {
+            Debug.LogWarning("‚ö†Ô∏è LeaderboardManager n√£o foi conectado no Inspector!");
+        }
+        // --------------------------------------
+
+        // Reinicia a fase ap√≥s 3 segundos
         Invoke("ReiniciarFase", 3f);
     }
 
